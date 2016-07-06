@@ -96,7 +96,7 @@ public:
      * @param buffer a pointer to an array containing the audio samples to be processed
      * @returns the onset detection function sample
      */
-	double calculateOnsetDetectionFunctionSample(double *buffer);
+	float calculateOnsetDetectionFunctionSample(float *buffer);
     
     /** Set the detection function type 
      * @param onsetDetectionFunctionType_ the type of onset detection function to use - (see OnsetDetectionFunctionType)
@@ -110,34 +110,34 @@ private:
 
     //=======================================================================
     /** Calculate energy envelope detection function sample */
-	double energyEnvelope();
+	float energyEnvelope();
     
     /** Calculate energy difference detection function sample */
-	double energyDifference();
+	float energyDifference();
     
     /** Calculate spectral difference detection function sample */
-	double spectralDifference();
+	float spectralDifference();
     
     /** Calculate spectral difference (half wave rectified) detection function sample */
-	double spectralDifferenceHWR();
+	float spectralDifferenceHWR();
     
     /** Calculate phase deviation detection function sample */
-	double phaseDeviation();
+	float phaseDeviation();
     
     /** Calculate complex spectral difference detection function sample */
-	double complexSpectralDifference();
+	float complexSpectralDifference();
     
     /** Calculate complex spectral difference detection function sample (half-wave rectified) */
-	double complexSpectralDifferenceHWR();
+	float complexSpectralDifferenceHWR();
     
     /** Calculate high frequency content detection function sample */
-	double highFrequencyContent();
+	float highFrequencyContent();
     
     /** Calculate high frequency spectral difference detection function sample */
-	double highFrequencySpectralDifference();
+	float highFrequencySpectralDifference();
     
     /** Calculate high frequency spectral difference detection function sample (half-wave rectified) */
-	double highFrequencySpectralDifferenceHWR();
+	float highFrequencySpectralDifferenceHWR();
 
     //=======================================================================
     /** Calculate a Rectangular window */
@@ -160,10 +160,10 @@ private:
      * @param phaseVal the phase value to process
      * @returns the wrapped phase value
      */
-	double princarg(double phaseVal);
+	float princarg(float phaseVal);
 	
 	
-	double pi;							/**< pi, the constant */
+	float pi;							/**< pi, the constant */
 	
 	int frameSize;						/**< audio framesize */
 	int hopSize;						/**< audio hopsize */
@@ -176,17 +176,17 @@ private:
 	
 	bool initialised;					/**< flag indicating whether buffers and FFT plans are initialised */
 
-    std::vector<double> frame;          /**< audio frame */
-    std::vector<double> window;         /**< window */
+    std::vector<float> frame;          /**< audio frame */
+    std::vector<float> window;         /**< window */
 	
-	double prevEnergySum;				/**< to hold the previous energy sum value */
+	float prevEnergySum;				/**< to hold the previous energy sum value */
 	
-    std::vector<double> magSpec;        /**< magnitude spectrum */
-    std::vector<double> prevMagSpec;    /**< previous magnitude spectrum */
+    std::vector<float> magSpec;        /**< magnitude spectrum */
+    std::vector<float> prevMagSpec;    /**< previous magnitude spectrum */
 	
-    std::vector<double> phase;          /**< FFT phase values */
-    std::vector<double> prevPhase;      /**< previous phase values */
-    std::vector<double> prevPhase2;     /**< second order previous phase values */
+    std::vector<float> phase;          /**< FFT phase values */
+    std::vector<float> prevPhase;      /**< previous phase values */
+    std::vector<float> prevPhase2;     /**< second order previous phase values */
 
 };
 

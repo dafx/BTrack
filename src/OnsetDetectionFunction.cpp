@@ -145,9 +145,9 @@ void OnsetDetectionFunction :: setOnsetDetectionFunctionType(int onsetDetectionF
 }
 
 //=======================================================================
-double OnsetDetectionFunction :: calculateOnsetDetectionFunctionSample(double *buffer)
+float OnsetDetectionFunction :: calculateOnsetDetectionFunctionSample(float *buffer)
 {	
-	double odfSample;
+	float odfSample;
 		
 	// shift audio samples back in frame by hop size
 	for (int i = 0; i < (frameSize-hopSize);i++)
@@ -257,9 +257,9 @@ void OnsetDetectionFunction :: performFFT()
 ////////////////////////////// Methods for Detection Functions /////////////////////////////////
 
 //=======================================================================
-double OnsetDetectionFunction :: energyEnvelope()
+float OnsetDetectionFunction :: energyEnvelope()
 {
-	double sum;
+	float sum;
 	
 	sum = 0;	// initialise sum
 	
@@ -273,10 +273,10 @@ double OnsetDetectionFunction :: energyEnvelope()
 }
 
 //=======================================================================
-double OnsetDetectionFunction :: energyDifference()
+float OnsetDetectionFunction :: energyDifference()
 {
-	double sum;
-	double sample;
+	float sum;
+	float sample;
 	
 	sum = 0;	// initialise sum
 	
@@ -301,10 +301,10 @@ double OnsetDetectionFunction :: energyDifference()
 }
 
 //=======================================================================
-double OnsetDetectionFunction :: spectralDifference()
+float OnsetDetectionFunction :: spectralDifference()
 {
-	double diff;
-	double sum;
+	float diff;
+	float sum;
 	
 	// perform the FFT
 	performFFT();
@@ -344,10 +344,10 @@ double OnsetDetectionFunction :: spectralDifference()
 }
 
 //=======================================================================
-double OnsetDetectionFunction :: spectralDifferenceHWR()
+float OnsetDetectionFunction :: spectralDifferenceHWR()
 {
-	double diff;
-	double sum;
+	float diff;
+	float sum;
 	
 	// perform the FFT
 	performFFT();
@@ -388,10 +388,10 @@ double OnsetDetectionFunction :: spectralDifferenceHWR()
 
 
 //=======================================================================
-double OnsetDetectionFunction :: phaseDeviation()
+float OnsetDetectionFunction :: phaseDeviation()
 {
-	double dev,pdev;
-	double sum;
+	float dev,pdev;
+	float sum;
 	
 	// perform the FFT
 	performFFT();
@@ -433,11 +433,11 @@ double OnsetDetectionFunction :: phaseDeviation()
 }
 
 //=======================================================================
-double OnsetDetectionFunction :: complexSpectralDifference()
+float OnsetDetectionFunction :: complexSpectralDifference()
 {
-	double phaseDeviation;
-	double sum;
-	double csd;
+	float phaseDeviation;
+	float sum;
+	float csd;
 	
 	// perform the FFT
 	performFFT();
@@ -472,12 +472,12 @@ double OnsetDetectionFunction :: complexSpectralDifference()
 }
 
 //=======================================================================
-double OnsetDetectionFunction :: complexSpectralDifferenceHWR()
+float OnsetDetectionFunction :: complexSpectralDifferenceHWR()
 {
-	double phaseDeviation;
-	double sum;
-	double magnitudeDifference;
-	double csd;
+	float phaseDeviation;
+	float sum;
+	float magnitudeDifference;
+	float csd;
 	
 	// perform the FFT
 	performFFT();
@@ -520,9 +520,9 @@ double OnsetDetectionFunction :: complexSpectralDifferenceHWR()
 
 
 //=======================================================================
-double OnsetDetectionFunction :: highFrequencyContent()
+float OnsetDetectionFunction :: highFrequencyContent()
 {
-	double sum;
+	float sum;
 	
 	// perform the FFT
 	performFFT();
@@ -536,7 +536,7 @@ double OnsetDetectionFunction :: highFrequencyContent()
 		magSpec[i] = sqrt(pow(complexOut[i][0],2) + pow(complexOut[i][1],2));
 		
 		
-		sum = sum + (magSpec[i]*((double) (i+1)));
+		sum = sum + (magSpec[i]*((float) (i+1)));
 		
 		// store values for next calculation
 		prevMagSpec[i] = magSpec[i];
@@ -546,10 +546,10 @@ double OnsetDetectionFunction :: highFrequencyContent()
 }
 
 //=======================================================================
-double OnsetDetectionFunction :: highFrequencySpectralDifference()
+float OnsetDetectionFunction :: highFrequencySpectralDifference()
 {
-	double sum;
-	double mag_diff;
+	float sum;
+	float mag_diff;
 	
 	// perform the FFT
 	performFFT();
@@ -570,7 +570,7 @@ double OnsetDetectionFunction :: highFrequencySpectralDifference()
 			mag_diff = -mag_diff;
 		}
 		
-		sum = sum + (mag_diff*((double) (i+1)));
+		sum = sum + (mag_diff*((float) (i+1)));
 		
 		// store values for next calculation
 		prevMagSpec[i] = magSpec[i];
@@ -580,10 +580,10 @@ double OnsetDetectionFunction :: highFrequencySpectralDifference()
 }
 
 //=======================================================================
-double OnsetDetectionFunction :: highFrequencySpectralDifferenceHWR()
+float OnsetDetectionFunction :: highFrequencySpectralDifferenceHWR()
 {
-	double sum;
-	double mag_diff;
+	float sum;
+	float mag_diff;
 	
 	// perform the FFT
 	performFFT();
@@ -601,7 +601,7 @@ double OnsetDetectionFunction :: highFrequencySpectralDifferenceHWR()
 		
 		if (mag_diff > 0)
 		{
-			sum = sum + (mag_diff*((double) (i+1)));
+			sum = sum + (mag_diff*((float) (i+1)));
 		}
 
 		// store values for next calculation
@@ -619,9 +619,9 @@ double OnsetDetectionFunction :: highFrequencySpectralDifferenceHWR()
 //=======================================================================
 void OnsetDetectionFunction :: calculateHanningWindow()
 {
-	double N;		// variable to store framesize minus 1
+	float N;		// variable to store framesize minus 1
 	
-	N = (double) (frameSize-1);	// framesize minus 1
+	N = (float) (frameSize-1);	// framesize minus 1
 	
 	// Hanning window calculation
 	for (int n = 0;n < frameSize;n++)
@@ -633,10 +633,10 @@ void OnsetDetectionFunction :: calculateHanningWindow()
 //=======================================================================
 void OnsetDetectionFunction :: calclulateHammingWindow()
 {
-	double N;		// variable to store framesize minus 1
-	double n_val;	// double version of index 'n'
+	float N;		// variable to store framesize minus 1
+	float n_val;	// float version of index 'n'
 	
-	N = (double) (frameSize-1);	// framesize minus 1
+	N = (float) (frameSize-1);	// framesize minus 1
 	n_val = 0;
 	
 	// Hamming window calculation
@@ -650,10 +650,10 @@ void OnsetDetectionFunction :: calclulateHammingWindow()
 //=======================================================================
 void OnsetDetectionFunction :: calculateBlackmanWindow()
 {
-	double N;		// variable to store framesize minus 1
-	double n_val;	// double version of index 'n'
+	float N;		// variable to store framesize minus 1
+	float n_val;	// float version of index 'n'
 	
-	N = (double) (frameSize-1);	// framesize minus 1
+	N = (float) (frameSize-1);	// framesize minus 1
 	n_val = 0;
 	
 	// Blackman window calculation
@@ -667,17 +667,17 @@ void OnsetDetectionFunction :: calculateBlackmanWindow()
 //=======================================================================
 void OnsetDetectionFunction :: calculateTukeyWindow()
 {
-	double N;		// variable to store framesize minus 1
-	double n_val;	// double version of index 'n'
-	double alpha;	// alpha [default value = 0.5];
+	float N;		// variable to store framesize minus 1
+	float n_val;	// float version of index 'n'
+	float alpha;	// alpha [default value = 0.5];
 	
 	alpha = 0.5;
 	
-	N = (double) (frameSize-1);	// framesize minus 1
+	N = (float) (frameSize-1);	// framesize minus 1
 		
 	// Tukey window calculation
 	
-	n_val = (double) (-1*((frameSize/2)))+1;
+	n_val = (float) (-1*((frameSize/2)))+1;
 
 	for (int n = 0;n < frameSize;n++)	// left taper
 	{
@@ -716,7 +716,7 @@ void OnsetDetectionFunction :: calculateRectangularWindow()
 ///////////////////////////////// Other Handy Methods //////////////////////////////////////////
 
 //=======================================================================
-double OnsetDetectionFunction :: princarg(double phaseVal)
+float OnsetDetectionFunction :: princarg(float phaseVal)
 {	
 	// if phase value is less than or equal to -pi then add 2*pi
 	while (phaseVal <= (-pi))
