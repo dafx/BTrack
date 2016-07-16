@@ -55,7 +55,9 @@ BTrack::BTrack(int hopSize_) : odf(hopSize_,2*hopSize_,ComplexSpectralDifference
 }
 
 //=======================================================================
-BTrack::BTrack(int hopSize_,int frameSize_) : odf(hopSize_,frameSize_,ComplexSpectralDifferenceHWR,HanningWindow)
+BTrack::BTrack(const int hopSize_, const int frameSize_, const float sampleRate) 
+	: odf(hopSize_,frameSize_,ComplexSpectralDifferenceHWR,HanningWindow)
+	, sampleRate (sampleRate)
 {
     initialise(hopSize_, frameSize_);
 }
@@ -92,7 +94,7 @@ void BTrack::initialise(int hopSize_, int frameSize_)
 	alpha = 0.9f;
 	tempo = 120.0f;
 	estimatedTempo = 120.0f;
-	tempoToLagFactor = 60.f * 44100.f / 512.f;
+	tempoToLagFactor = 60.f * sampleRate / 512.f;
 	
 	m0 = 10;
 	beatCounter = -1;
@@ -146,7 +148,7 @@ void BTrack::setHopSize(int hopSize_)
 	hopSize = hopSize_;
 	onsetDFBufferSize = (512*512)/hopSize;		// calculate df buffer size
 	
-	beatPeriod = round(60/((((float) hopSize)/44100)*tempo));
+	beatPeriod = round(60/((((float) hopSize)/sampleRate)*tempo));
 
     // set size of onset detection function buffer
     onsetDF.resize(onsetDFBufferSize);
@@ -291,7 +293,7 @@ void BTrack::setTempo(float tempo)
 	/////////// CUMULATIVE SCORE ARTIFICAL TEMPO UPDATE //////////////////
 	
 	// calculate new beat period
-	int new_bperiod = (int) round(60/((((float) hopSize)/44100)*tempo));
+	int new_bperiod = (int) round(60/((((float) hopSize)/sampleRate)*tempo));
 	
 	int bcounter = 1;
 	// initialise df_buffer to zeros
@@ -473,11 +475,11 @@ void BTrack::calculateTempo()
 		prevDelta[j] = delta[j];
 	}
 	
-	beatPeriod = round((60.0*44100.0)/(((2*maxind)+80)*((float) hopSize)));
+	beatPeriod = round((60.0*sampleRate)/(((2*maxind)+80)*((float) hopSize)));
 	
 	if (beatPeriod > 0)
 	{
-		estimatedTempo = 60.0/((((float) hopSize) / 44100.0)*beatPeriod);
+		estimatedTempo = 60.0/((((float) hopSize) / sampleRate)*beatPeriod);
 	}
 }
 

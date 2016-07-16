@@ -48,7 +48,7 @@ public:
      * @param hopSize the hop size in audio samples
      * @param frameSize the frame size in audio samples
      */
-    BTrack(int hopSize_,int frameSize_);
+    BTrack(const int hopSize_, const int frameSize_, const float sampleRate);
     
     //=======================================================================
     /** Updates the hop and frame size used by the beat tracker 
@@ -229,6 +229,8 @@ private:
     bool tempoFixed;                        /**< indicates whether the tempo should be fixed or not */
     
     bool beatDueInFrame;                    /**< indicates whether a beat is due in the current frame */
+
+	float sampleRate;
 
 };
 
