@@ -30,7 +30,7 @@ OnsetDetectionFunction::OnsetDetectionFunction(int hopSize_,int frameSize_) : on
 	initialised = false;
 	
 	// set pi
-	pi = 3.14159265358979;
+	pi = 3.14159265358979f;
 	
 	// initialise with arguments to constructor
 	initialise(hopSize_,frameSize_,ComplexSpectralDifferenceHWR,HanningWindow);
@@ -43,7 +43,7 @@ OnsetDetectionFunction::OnsetDetectionFunction(int hopSize_,int frameSize_,int o
 	initialised = false;
 	
 	// set pi
-	pi = 3.14159265358979;	
+	pi = 3.14159265358979f;	
 	
 	// initialise with arguments to constructor
 	initialise(hopSize_,frameSize_,onsetDetectionFunctionType_,windowType_);

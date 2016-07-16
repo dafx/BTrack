@@ -83,16 +83,16 @@ float BTrack::getBeatTimeInSeconds(int frameNumber,int hopSize,int fs)
 //=======================================================================
 void BTrack::initialise(int hopSize_, int frameSize_)
 {
-    float rayparam = 43;
-	float pi = 3.14159265;
+    float rayparam = 43.0f;
+	float pi = 3.14159265f;
 	
 	
 	// initialise parameters
-	tightness = 5;
-	alpha = 0.9;
-	tempo = 120;
-	estimatedTempo = 120.0;
-	tempoToLagFactor = 60.*44100./512.;
+	tightness = 5.0f;
+	alpha = 0.9f;
+	tempo = 120.0f;
+	estimatedTempo = 120.0f;
+	tempoToLagFactor = 60.f * 44100.f / 512.f;
 	
 	m0 = 10;
 	beatCounter = -1;
@@ -223,7 +223,7 @@ void BTrack::processOnsetDetectionFunctionSample(float newSample)
     
     // add a tiny constant to the sample to stop it from ever going
     // to zero. this is to avoid problems further down the line
-    newSample = newSample + 0.0001;
+    newSample = newSample + 0.0001f;
     
 	m0--;
 	beatCounter--;
